@@ -1,0 +1,31 @@
+note over browser:
+Inserting the note and pressing the send button
+end note
+
+browser->server:HTTP GET https://studies.cs.helsinki.fi/exampleapp/new_note
+
+note over server:
+Server receives the note and saves it.
+end note 
+server-->browser: HTTP status code 302
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+server-->browser: HTML code page
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+server-->browser: main.js
+
+note over browser:
+main.js is now executed 
+and it is time to request data.json 
+from the server
+end note
+
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: data.json
+
+note over browser:
+the new note is received 
+and shows the pages of notes 
+together with the new note.
+end note

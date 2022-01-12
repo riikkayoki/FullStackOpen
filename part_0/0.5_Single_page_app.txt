@@ -1,0 +1,23 @@
+note over browser:
+Inserting the note and pressing the send button
+end note
+
+
+browser->server:HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+server-->browser: HTML code page
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+server-->browser: main.css
+browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+server-->browser: spa.js
+
+note over browser:
+Browser executes .js code 
+which request .json data from the server
+end note
+browser->server: HTTP GET ttps://studies.cs.helsinki.fi/exampleapp/data.json
+server-->browser: {content: "123", date: "2021-05-21T08:56:55.313Z"}
+
+note over browser:
+Server has executed the note to the browser
+end note
+
