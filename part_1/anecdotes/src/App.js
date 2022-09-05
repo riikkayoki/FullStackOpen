@@ -3,9 +3,22 @@ import { useState } from 'react'
 
 const Button = ({onClick, text}) => {
   return (
-    <div>
     <button onClick={onClick}>{text}</button>
-    </div>
+  )
+}
+
+const Title = (props) => {
+  return (
+  <h1>{props.title}</h1>
+  )
+}
+
+const Anecdote = (props) => {
+  return (
+    <>
+    <p>{props.anecdote}</p>
+    <p>has {props.votes} votes</p>
+    </>
   )
 }
 
@@ -24,16 +37,23 @@ const App = () => {
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState([0, 0, 0, 0, 0, 0, 0])
   const copy = { ...points}
+  const [best, setMax] = useState(0)
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p> has {points[selected]} votes</p>
+      <Title title='Anecdote of the day'/>
+      <Anecdote anecdote={anecdotes[selected]} votes={points[selected]}/>
       <Button onClick={() => {
         copy[selected] += 1
-        setPoints(copy)}
+        setPoints(copy)
+        if (copy[selected] > copy[best]) {
+          setMax(selected)
+        }
+      }
       } text='vote'/>
       <Button onClick={() => setSelected(Math.floor(Math.random()*anecdotes.length))} text='next anecdote'/>
+      <Title title='Anecdote with most votes'/>
+      <Anecdote anecdote={anecdotes[best]} votes={points[best]}/>
     </div>
   )
 }
