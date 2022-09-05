@@ -14,21 +14,24 @@ const Button = (props) => {
 
 const StatisticsLine = (props) => {
   return (
-    <p>{props.text} {props.result}</p>
+    <tr>
+    <td>{props.text}</td>
+    <td> {props.result}</td>
+    </tr>
   )
 }
 
 const Statistics = (props) => {
   if (props.all === 0) { return (<>No feedback given</>)}
   return (
-    <>
+    <table>
     <StatisticsLine text='good' result={props.good}/>
     <StatisticsLine text='neutral' result={props.neutral}/>
     <StatisticsLine text='bad' result={props.bad}/>
     <StatisticsLine text='all' result={props.all}/>
     <StatisticsLine text='average' result={props.average}/>
     <StatisticsLine text='positive' result={props.positive}/>
-    </>
+    </table>
   )
 }
 
