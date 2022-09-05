@@ -12,21 +12,22 @@ const Button = (props) => {
   )
 }
 
-const Result = (props) => {
+const StatisticsLine = (props) => {
   return (
     <p>{props.text} {props.result}</p>
   )
 }
 
 const Statistics = (props) => {
+  if (props.all === 0) { return (<>No feedback given</>)}
   return (
     <>
-    <Result text='good' result={props.good}/>
-    <Result text='neutral' result={props.neutral}/>
-    <Result text='bad' result={props.bad}/>
-    <Result text='all' result={props.all}/>
-    <Result text='average' result={props.average}/>
-    <Result text='positive' result={props.positive}/>
+    <StatisticsLine text='good' result={props.good}/>
+    <StatisticsLine text='neutral' result={props.neutral}/>
+    <StatisticsLine text='bad' result={props.bad}/>
+    <StatisticsLine text='all' result={props.all}/>
+    <StatisticsLine text='average' result={props.average}/>
+    <StatisticsLine text='positive' result={props.positive}/>
     </>
   )
 }
