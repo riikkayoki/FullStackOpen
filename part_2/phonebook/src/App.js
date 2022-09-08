@@ -21,9 +21,7 @@ const App = () => {
       number: newNumber
     }
 
-    if (persons.some(person => person.name === newName)) {
-      console.log(persons.includes(newName))
-
+    if (persons.some(person => person.name.includes(newName))) {
         alert(`${newName} is already added to phonebook`)
       }
     else {
