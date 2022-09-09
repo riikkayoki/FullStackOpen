@@ -11,70 +11,69 @@ const Filter = ({newFilter, handleFilterChange}) => {
 }
 
 const Country = ({country}) => {
-  console.log(country)
   return (
-    <>
+  <div>
   <h1>{country.name.common}</h1>
   <div> capital {country.capital}</div>
   <div> area {country.area}</div>
   <p>
   <b> languages: </b>
+  </p>
   <ul>
   {Object.values(country.languages).map(language => <li key={language}>{language}</li>)}
   </ul>
-  <img src={country.flags.png}></img>
-  </p>
-  </>
+  <img src={country.flags.png} alt='flag' height='50' width='100'></img>
+  </div>
   )
 }
 
-const Countries = ({countriesToShow}) => {
-  if (countriesToShow.length > 10) {
-    return(<p>Too many matches, specify another filter</p>)
-  }
-  if (countriesToShow.length > 1) {
-   return( <div>
-        {countriesToShow.map(country =>
-        <p key={country.name.common}>
-          {country.name.common}
-        </p>
-        )}
-    </div>)
-  }
-  if (countriesToShow.length === 1) {
-    return( <div>
-      {countriesToShow.map(country =>
-      <div key={country.name.common}>
-        <Country country={country}/>
-      </div>
-      )}
-  </div>)
-  }
+const Countries = ({countriesToShow, handleClick}) => {
+  return (
+    <div>
+    {countriesToShow.length > 10 && <p>Too many matches, specify another filter</p>}
+
+    {countriesToShow.length <= 10 && countriesToShow.length > 1 &&
+      countriesToShow.map(country =>
+      <div key={country.name.common}>{country.name.common}
+       <button key={country.name.common} onClick={() => handleClick(country)}>show</button>
+      </div>)
+    }
+
+    {countriesToShow.length === 1 &&
+      countriesToShow.map(country =>
+      <div key={country.name.common}><Country country={country}/></div>)
+    }
+    </div>
+  )
 }
 
 const App = () => {
   const [newFilter, setNewFilter] = useState('')
   const [countries, setCountries] = useState([])
+  const [showAll, setShowAll] = useState([])
 
   useEffect(() => {
     axios
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
-        setCountries(response.data)
+        setShowAll(response.data)
 
       })
   }, [])
 
   const handleFilterChange = (event) => {
+    setCountries(showAll.filter(country => country.name.common.toLowerCase().includes(newFilter.toLowerCase())))
     setNewFilter(event.target.value)
   }
 
-  const countriesToShow = countries.filter(country => country.name.common.toLowerCase().includes(newFilter)) /** true*/
+  const handleShowCountry = (country) => {
+    setCountries([country])
+  }
 
    return (
     <div>
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange}/>
-      <Countries countriesToShow={countriesToShow}/>
+      <Countries countriesToShow={countries} handleClick={handleShowCountry}/>
     </div>
 
   )
