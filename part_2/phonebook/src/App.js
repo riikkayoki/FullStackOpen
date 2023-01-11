@@ -12,7 +12,6 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
 
-
   useEffect(() => {
     personService
       .getAll()
@@ -29,7 +28,22 @@ const App = () => {
     }
 
     if (persons.some(person => person.name.toLowerCase().includes(newName.toLowerCase()))) {
-        alert(`${newName} is already added to phonebook`)
+        if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+
+          const person = persons.find(person => person.name === newName)
+          const changedPerson = { ...person, number: newNumber}
+
+          personService
+          .update(person.id, changedPerson)
+          .then(response => {
+            setPersons(
+              persons.map(person => person.name !== newName
+              ? person
+              : response))
+            setNewName('')
+            setNewNumber('')
+          })
+        }
       }
     else {
       personService
@@ -66,8 +80,8 @@ const App = () => {
   }
 
   const personsToShow = newFilter
-   ? persons.filter(person => person.name.includes(newFilter)) /** true*/
-   : persons /** false*/
+    ? persons.filter(person => person.name.toLowerCase().includes(newFilter.toLowerCase()))
+    : persons
 
    return (
     <div>
