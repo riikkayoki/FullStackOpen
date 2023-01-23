@@ -1,1 +1,3 @@
-This part you can find in a different repository:
+## Part 3
+
+This part can be found [here](https://github.com/riikkayoki/FullStackOpen-part3)
