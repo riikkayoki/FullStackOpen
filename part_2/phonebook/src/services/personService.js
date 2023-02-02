@@ -1,10 +1,10 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/api/persons'
+const baseUrl = '/api/persons'
 
-const getAll = async () => {
+const getAll = () => {
     const request = axios.get(baseUrl)
     return request.then(response => response.data)
-}
+  }
 
 const create = async newObject => {
     const request = axios.post(baseUrl, newObject)
@@ -16,9 +16,11 @@ const remove = async (id) => {
     return request.then(response => response.data)
 }
 
-const update = (id, newObject) => {
+const update = async (id, newObject) => {
     const request = axios.put(`${baseUrl}/${id}`, newObject)
-    return request.then(response => response.data)
+    const response = await request
+    return response.data
 }
 
+// eslint-disable-next-line
 export default { getAll, create, remove, update }
