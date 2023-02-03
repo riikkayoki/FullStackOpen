@@ -48,6 +48,9 @@ const App = () => {
             setNewNumber('')
             setNotificationMessage({message: `${person.name} is now updated!`, type: 'notification'})
             handleTimeOut()
+          }).catch(error => {
+            setNotificationMessage({message: error.response.data.error, type: 'error'})
+            handleTimeOut()
           })
         }
       }
@@ -64,6 +67,7 @@ const App = () => {
         setNotificationMessage({message: error.response.data.error, type: 'error'})
         handleTimeOut()
       })
+
     }
   }
 
@@ -77,6 +81,9 @@ const App = () => {
           handleTimeOut()
         }).catch(error => {
           setNotificationMessage({message: `Information of ${person.name} has already been removed from the server!`, type: 'error'})
+          handleTimeOut()
+        }).catch(error => {
+          setNotificationMessage({message: error.response.data.error, type: 'error'})
           handleTimeOut()
         })
       }
