@@ -35,7 +35,7 @@ const App = () => {
       number: newNumber
     }
 
-    if (persons.some(person => person.name.toLowerCase().includes(newName.toLowerCase()))) {
+    if (persons.some(person => person['name'] === newName)) {
         if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
           personService
           .update(person.id, changedPerson)
@@ -47,9 +47,6 @@ const App = () => {
             setNewName('')
             setNewNumber('')
             setNotificationMessage({message: `${person.name} is now updated!`, type: 'notification'})
-            handleTimeOut()
-          }).catch(error => {
-            setNotificationMessage({message: `Information of ${person.name} has already been removed from the server!`, type: 'error'})
             handleTimeOut()
           })
         }
@@ -70,18 +67,6 @@ const App = () => {
     }
   }
 
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
-  }
-
-  const handleFilterChange = (event) => {
-    setNewFilter(event.target.value)
-  }
-
   const handlePersonDelete = (person) => {
     if (window.confirm(`Delete ${person.name}?`)) {
         personService
@@ -96,6 +81,18 @@ const App = () => {
         })
       }
     }
+
+  const handleNameChange = (event) => {
+    setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
+  }
+
+  const handleFilterChange = (event) => {
+    setNewFilter(event.target.value)
+  }
 
   const handleTimeOut = () => {
     setTimeout(() => {

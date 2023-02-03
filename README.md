@@ -1,4 +1,4 @@
-#Full Stack Open
+# Full Stack Open
 
 This repository contains exercises for the [Full Stack Open](https://fullstackopen.com/en/) course.
 
