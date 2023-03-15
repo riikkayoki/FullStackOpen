@@ -4,7 +4,7 @@ const app = require('../app')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
-const {noBlog, oneBlog, newBlog, manyBlogs} = require('../utils/test_helper')
+const {noBlog, oneBlog, newBlog, manyBlogs, blogNoLikes} = require('../utils/test_helper')
 
 
 describe('when there is initially some blogs saved', () => {
@@ -30,6 +30,16 @@ describe('when there is initially some blogs saved', () => {
       .expect(201)
       .expect('Content-Type', /application\/json/)
   })
+  test('new blog has 0 likes if likes is not defined', async () => {
+    await api
+      .post('/api/blogs')
+      .send(blogNoLikes)
+      .expect(201)
+      .expect('Content-Type', /application\/json/)
+    const response = await api.get('/api/blogs')
+    expect(response.body[response.body.length - 1].likes).toBe(0)
+  })
+
 })
 
 afterAll(async () => {

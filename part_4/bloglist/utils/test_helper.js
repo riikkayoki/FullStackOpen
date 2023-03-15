@@ -71,10 +71,16 @@ const newBlog = {
     likes: 3
   }
 
+const blogNoLikes = {
+    title: "test blog",
+    author: 'test_author',
+    url: "nourl.html"
+}
 
 module.exports = {
     noBlog,
     oneBlog,
     manyBlogs,
-    newBlog
+    newBlog,
+    blogNoLikes
 }
