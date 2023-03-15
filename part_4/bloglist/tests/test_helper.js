@@ -1,3 +1,5 @@
+const Blog = require('../models/blog')
+
 const noBlog = []
 
 const oneBlog = [
@@ -77,10 +79,30 @@ const blogNoLikes = {
     url: "nourl.html"
 }
 
+const blogNoTitle = {
+  author: 'nice author',
+  url: 'nice_url.html',
+  likes: 3,
+}
+
+const blogNoUrl = {
+  title: 'no url title',
+  author: 'url author',
+  likes: 3,
+}
+
+const blogsInDb = async () => {
+  const blogs = await Blog.find({})
+  return blogs.map(blog => blog.toJSON())
+}
+
 module.exports = {
     noBlog,
     oneBlog,
     manyBlogs,
     newBlog,
-    blogNoLikes
+    blogNoLikes,
+    blogNoTitle,
+    blogNoUrl,
+    blogsInDb
 }

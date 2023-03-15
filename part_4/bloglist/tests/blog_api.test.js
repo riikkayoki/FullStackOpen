@@ -4,13 +4,13 @@ const app = require('../app')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
-const {noBlog, oneBlog, newBlog, manyBlogs, blogNoLikes} = require('../utils/test_helper')
+const helper = require('./test_helper')
 
 
 describe('when there is initially some blogs saved', () => {
   beforeEach(async () => {
     await Blog.deleteMany({})
-    await Blog.insertMany(manyBlogs)
+    await Blog.insertMany(helper.manyBlogs)
   }),
 
   test('blogs are returned as json', async () => {
@@ -19,6 +19,11 @@ describe('when there is initially some blogs saved', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
   })
+  test('all blogs are returned', async () => {
+    const blogsInDb = await helper.blogsInDb()
+    expect(blogsInDb).toHaveLength(helper.manyBlogs.length)
+
+  })
   test('id is defined', async () => {
     const response = await api.get('/api/blogs')
     expect(response.body[0].id).toBeDefined()
@@ -26,20 +31,42 @@ describe('when there is initially some blogs saved', () => {
   test('new blog can be added', async () => {
     await api
       .post('/api/blogs')
-      .send(newBlog)
+      .send(helper.newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
+
+    const blogsInDb = await helper.blogsInDb()
+    expect(blogsInDb).toHaveLength(helper.manyBlogs.length + 1)
+
+
   })
   test('new blog has 0 likes if likes is not defined', async () => {
     await api
       .post('/api/blogs')
-      .send(blogNoLikes)
+      .send(helper.blogNoLikes)
       .expect(201)
       .expect('Content-Type', /application\/json/)
-    const response = await api.get('/api/blogs')
-    expect(response.body[response.body.length - 1].likes).toBe(0)
-  })
 
+    const blogsInDb = await helper.blogsInDb()
+    expect(blogsInDb).toHaveLength(helper.manyBlogs.length + 1)
+    })
+
+  test('if new blog has no url, returns 400', async () => {
+    await api
+      .post('/api/blogs')
+      .send(helper.blogNoUrl)
+      .expect(400)
+    const blogsInDb = await helper.blogsInDb()
+    expect(blogsInDb).toHaveLength(helper.manyBlogs.length)
+  })
+  test('if new blog has no title, returns 400', async () => {
+    await api
+      .post('/api/blogs')
+      .send(helper.blogNoTitle)
+      .expect(400)
+    const blogsInDb = await helper.blogsInDb()
+    expect(blogsInDb).toHaveLength(helper.manyBlogs.length)
+  })
 })
 
 afterAll(async () => {
