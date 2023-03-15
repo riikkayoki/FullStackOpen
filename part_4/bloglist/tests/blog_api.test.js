@@ -77,6 +77,18 @@ describe('when there is initially some blogs saved', () => {
     const blogsInDb = await helper.blogsInDb()
     expect(blogsInDb).toHaveLength(helper.manyBlogs.length - 1)
 })
+  test('a specific blog can be updated', async () => {
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToUpdate = blogsAtStart[0]
+
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send( {likes: 100 } )
+      .expect(200)
+    const blogsInDb = await helper.blogsInDb()
+    expect(blogsInDb).toHaveLength(helper.manyBlogs.length)
+    expect(blogsInDb[0].likes).toBe(100)
+  })
 })
 
 afterAll(async () => {
