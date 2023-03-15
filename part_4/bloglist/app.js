@@ -1,12 +1,14 @@
-const express = require('express')
 const config = require('./utils/config')
-const logger = require('./utils/logger')
-const mongoose = require('mongoose')
-const middleware = require('./utils/middleware')
-const cors = require('cors')
+const express = require('express')
 const app = express()
+const cors = require('cors')
 const blogsRouter = require('./controllers/blogs')
 
+require('express-async-errors')
+const logger = require('./utils/logger')
+const middleware = require('./utils/middleware')
+
+const mongoose = require('mongoose')
 
 mongoose.set('strictQuery', false)
 logger.info('connecting to', config.MONGODB_URI)

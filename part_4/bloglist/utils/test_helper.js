@@ -63,8 +63,18 @@ const manyBlogs = [
   ]
 
 
+const newBlog = {
+
+    title: "New Blog",
+    author: "riikkayoki",
+    url: "no_url.html",
+    likes: 3
+  }
+
+
 module.exports = {
     noBlog,
     oneBlog,
-    manyBlogs
+    manyBlogs,
+    newBlog
 }
