@@ -67,6 +67,16 @@ describe('when there is initially some blogs saved', () => {
     const blogsInDb = await helper.blogsInDb()
     expect(blogsInDb).toHaveLength(helper.manyBlogs.length)
   })
+  test('a specific blog can be deleted', async () => {
+
+    const blogsAtStart = await helper.blogsInDb()
+    const blogToDelete = blogsAtStart[0]
+    await api
+      .delete(`/api/blogs/${blogToDelete.id}`)
+      .expect(204)
+    const blogsInDb = await helper.blogsInDb()
+    expect(blogsInDb).toHaveLength(helper.manyBlogs.length - 1)
+})
 })
 
 afterAll(async () => {
