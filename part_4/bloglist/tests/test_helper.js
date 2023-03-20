@@ -62,35 +62,9 @@ const manyBlogs = [
       url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
       likes: 2,
       __v: 0
-    }
+    },
   ]
 
-
-const newBlog = {
-
-    title: "New Blog",
-    author: "riikkayoki",
-    url: "no_url.html",
-    likes: 3
-  }
-
-const blogNoLikes = {
-    title: "test blog",
-    author: 'test_author',
-    url: "nourl.html"
-}
-
-const blogNoTitle = {
-  author: 'nice author',
-  url: 'nice_url.html',
-  likes: 3,
-}
-
-const blogNoUrl = {
-  title: 'no url title',
-  author: 'url author',
-  likes: 3,
-}
 
 const blogsInDb = async () => {
   const blogs = await Blog.find({})
@@ -107,10 +81,6 @@ module.exports = {
     noBlog,
     oneBlog,
     manyBlogs,
-    newBlog,
-    blogNoLikes,
-    blogNoTitle,
-    blogNoUrl,
     blogsInDb,
     usersInDb
 }
