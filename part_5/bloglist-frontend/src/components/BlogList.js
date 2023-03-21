@@ -1,9 +1,6 @@
 
 const BlogList = ({blogs}) => {
 
-  console.log(blogs)
-  
-
   return (
     <div>
       <h2>blogs</h2>
@@ -20,6 +17,5 @@ const BlogList = ({blogs}) => {
   )
 
 }
-
 
 export default BlogList
