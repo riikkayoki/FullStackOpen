@@ -4,6 +4,7 @@ import blogService from './services/blogs'
 import LoginForm from './components/LoginForm'
 import LogOut from './components/LogOut'
 import UserDetails from './components/UserDetails'
+import BlogForm from './components/BlogForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -21,12 +22,13 @@ const App = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
+      blogService.setToken(user.token)
     }
   }, [])
 
     if (user === null) {
         return(
-        <LoginForm setUser={setUser} />
+        <LoginForm setUser={setUser} blogService={blogService}/>
         )
 
       } else {
@@ -35,6 +37,7 @@ const App = () => {
         <UserDetails user={user}/>
         <LogOut/>
         <BlogList blogs={blogs}/>
+        <BlogForm blogs={blogs} setBlogs={setBlogs}/>
         </div>
         )
       }

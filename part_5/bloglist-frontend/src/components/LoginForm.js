@@ -4,7 +4,7 @@ import { useState } from 'react'
 import loginService from '../services/login'
 
 
-const LoginForm = ({setUser}) => {
+const LoginForm = ({setUser, noteService}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -15,6 +15,7 @@ const LoginForm = ({setUser}) => {
             username, password
         })
         console.log(`logging in with ${JSON.stringify(user)}`)
+        noteService.setToken(user.token)
         window.localStorage.setItem(
             'loggedNoteappUser', JSON.stringify(user)
             )

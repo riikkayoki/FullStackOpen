@@ -3,7 +3,7 @@ const BlogList = ({blogs}) => {
 
   return (
     <div>
-      <h2>blogs</h2>
+      <h2>Blogs</h2>
       <div>
         {blogs.map(blog =>
           <div key={blog.id}>
