@@ -6,6 +6,7 @@ import LogOut from './components/LogOut'
 import UserDetails from './components/UserDetails'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -54,8 +55,11 @@ const App = () => {
         <Notification message={notification} type={messageType}/>
         <UserDetails user={user}/>
         <LogOut/>
-        <BlogList blogs={blogs}/>
+        <Togglable buttonLabel='new blog'>
         <BlogForm blogs={blogs} setBlogs={setBlogs} handleNotify={handleNotify}/>
+        </Togglable>
+        <BlogList blogs={blogs}/>
+
         </div>
         )
       }
