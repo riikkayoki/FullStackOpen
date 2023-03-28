@@ -17,7 +17,7 @@ const LoginForm = ({setUser, blogService, handleNotify}) => {
         console.log(`logging in with ${JSON.stringify(user)}`)
         blogService.setToken(user.token)
         window.localStorage.setItem(
-            'loggedBlogappUser', JSON.stringify(user)
+            'loggedNoteappUser', JSON.stringify(user)
             )
         setUser(user)
         setUsername('')
