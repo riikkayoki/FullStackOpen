@@ -3,7 +3,7 @@ import Button from '../components/Button'
 const LogOut = () => {
 
     const handleLogOut = () => {
-        window.localStorage.removeItem('loggedNoteappUser')
+        window.localStorage.removeItem('loggedUser')
         window.location.reload()
     }
 

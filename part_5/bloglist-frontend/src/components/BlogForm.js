@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import blogService from '../services/blogs'
+import Togglable from './Togglable'
 
 
 const BlogForm = ({blogs, setBlogs, handleNotify}) => {
@@ -20,27 +21,37 @@ const BlogForm = ({blogs, setBlogs, handleNotify}) => {
         setUrl(event.target.value)
     }
 
+    const blogFormRef = useRef()
+
     const handleBlogAdd = async (event) => {
         event.preventDefault()
         const blogObject = {
             title: title,
             author: author,
             url: url,
-    }
+        }
 
-    try {
-        const blog = await blogService.create(blogObject)
-        setTitle('')
-        setAuthor('')
-        setUrl('')
-        setBlogs(blogs.concat(blog))
-        handleNotify(`a new blog '${blogObject.title}' added`, 'notification')
-    } catch (exception) {
-        console.log('error')
-    }
+        try {
+            blogFormRef.current.toggleVisibility()
+            const blog = await blogService.create(blogObject)
+
+            const loggedUser = window.localStorage.getItem('loggedUser')
+            const user = JSON.parse(loggedUser)
+            blog.user = user
+            setTitle('')
+            setAuthor('')
+            setUrl('')
+            setBlogs(blogs.concat(blog))
+            handleNotify(`a new blog '${blogObject.title}' added`, 'notification')
+        } catch (exception) {
+            handleNotify(`unable to add '${blogObject.title}'`, 'error')
+
+        }
 }
 
+
     return (
+        <Togglable buttonLabel="new blog" ref={blogFormRef}>
         <div>
             <h2>Create a new blog</h2>
             <form onSubmit={handleBlogAdd}>
@@ -75,6 +86,7 @@ const BlogForm = ({blogs, setBlogs, handleNotify}) => {
             </form>
 
         </div>
+        </Togglable>
 
     )
 }

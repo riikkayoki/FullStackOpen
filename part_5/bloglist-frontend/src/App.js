@@ -6,15 +6,13 @@ import LogOut from './components/LogOut'
 import UserDetails from './components/UserDetails'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
-import Togglable from './components/Togglable'
+
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [notification, setNotification] = useState(null)
   const [messageType, setMessageType] = useState(null)
-
-
 
 
   useEffect(() => {
@@ -24,7 +22,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
@@ -55,9 +53,7 @@ const App = () => {
         <Notification message={notification} type={messageType}/>
         <UserDetails user={user}/>
         <LogOut/>
-        <Togglable buttonLabel='new blog'>
         <BlogForm blogs={blogs} setBlogs={setBlogs} handleNotify={handleNotify}/>
-        </Togglable>
         <BlogList blogs={blogs}/>
 
         </div>

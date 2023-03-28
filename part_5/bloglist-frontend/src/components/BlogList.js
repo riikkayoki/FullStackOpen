@@ -23,8 +23,10 @@ const BlogList = ({blogs}) => {
               <ul>
               <li><b>Author:</b> {blog.author}</li>
               <li><b>Url: </b>{blog.url}</li>
-              <li><b>Likes: </b> {blog.likes}</li>
+              <li><b>Likes: </b> {blog.likes} <button>like</button></li>
+              <li><b>Added by: </b> {blog.user.name}</li>
               </ul>
+
               </Togglable>
             </div>
           </div>
