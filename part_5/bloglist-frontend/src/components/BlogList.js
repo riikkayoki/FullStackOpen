@@ -34,8 +34,10 @@ const BlogList = ({blogs, setBlogs, handleNotify }) => {
         name: blog.user.name
       }
 
+    const updatedBlogs = blogs
+    .map(b => b.id === updatedBlog.id ? updatedBlog : b)
+    .sort((a, b) => b.likes - a.likes)
 
-    const updatedBlogs = blogs.map(b => b.id === updatedBlog.id ? updatedBlog : b)
     setBlogs(updatedBlogs)
     handleNotify(`You liked '${updatedBlog.title}'`, 'notification')
     } catch (exception) {
