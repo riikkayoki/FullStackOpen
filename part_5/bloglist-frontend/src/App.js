@@ -16,9 +16,12 @@ const App = () => {
 
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )
+    const getBlogs = async () => {
+      const blogs = await blogService.getAll()
+      setBlogs(blogs)
+    }
+
+    getBlogs()
   }, [])
 
   useEffect(() => {
@@ -54,7 +57,7 @@ const App = () => {
         <UserDetails user={user}/>
         <LogOut/>
         <BlogForm blogs={blogs} setBlogs={setBlogs} handleNotify={handleNotify}/>
-        <BlogList blogs={blogs}/>
+        <BlogList blogs={blogs} setBlogs={setBlogs} handleNotify={handleNotify}/>
 
         </div>
         )
