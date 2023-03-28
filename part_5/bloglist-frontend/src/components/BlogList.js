@@ -47,6 +47,22 @@ const BlogList = ({blogs, setBlogs, handleNotify }) => {
 
   }
 
+  const handleDeleteBlog = async (event, blog) => {
+    event.preventDefault()
+
+    try {
+      if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+        await blogService.remove(blog.id)
+        const updatedBlogs = blogs.filter(b => b.id !== blog.id)
+        setBlogs(updatedBlogs)
+        handleNotify(`You deleted '${blog.title}'`, 'notification')
+      }
+    }
+      catch (exception) {
+        handleNotify(`unable to delete the blog`, 'error')
+    }
+  }
+
   return (
     <div>
       <h2>Blogs</h2>
@@ -62,6 +78,7 @@ const BlogList = ({blogs, setBlogs, handleNotify }) => {
               <li><b>Likes: </b> {blog.likes} <button onClick={(event) => handleUpdateLikes(event, blog)}>like</button></li>
               <li><b>Added by: </b> {blog.user.name}</li>
               </ul>
+              <button onClick={(event) => handleDeleteBlog(event, blog)}>delete</button>
               </Togglable>
             </div>
           </div>
