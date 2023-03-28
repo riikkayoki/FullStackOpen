@@ -5,10 +5,15 @@ import LoginForm from './components/LoginForm'
 import LogOut from './components/LogOut'
 import UserDetails from './components/UserDetails'
 import BlogForm from './components/BlogForm'
+import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
+  const [notification, setNotification] = useState(null)
+  const [messageType, setMessageType] = useState(null)
+
+
 
 
   useEffect(() => {
@@ -26,18 +31,31 @@ const App = () => {
     }
   }, [])
 
+  const handleNotify = (message, type) => {
+    setNotification(message)
+    setMessageType(type)
+    setTimeout(() => {
+      setNotification(null)
+    }, 5000)
+  }
+
+
     if (user === null) {
         return(
-        <LoginForm setUser={setUser} blogService={blogService}/>
+        <div>
+        <Notification message={notification} type={messageType}/>
+        <LoginForm setUser={setUser} blogService={blogService} handleNotify={handleNotify}/>
+        </div>
         )
 
       } else {
         return (
         <div>
+        <Notification message={notification} type={messageType}/>
         <UserDetails user={user}/>
         <LogOut/>
         <BlogList blogs={blogs}/>
-        <BlogForm blogs={blogs} setBlogs={setBlogs}/>
+        <BlogForm blogs={blogs} setBlogs={setBlogs} handleNotify={handleNotify}/>
         </div>
         )
       }

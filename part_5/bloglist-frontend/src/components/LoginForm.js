@@ -4,7 +4,7 @@ import { useState } from 'react'
 import loginService from '../services/login'
 
 
-const LoginForm = ({setUser, noteService}) => {
+const LoginForm = ({setUser, blogService, handleNotify}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -15,15 +15,15 @@ const LoginForm = ({setUser, noteService}) => {
             username, password
         })
         console.log(`logging in with ${JSON.stringify(user)}`)
-        noteService.setToken(user.token)
+        blogService.setToken(user.token)
         window.localStorage.setItem(
-            'loggedNoteappUser', JSON.stringify(user)
+            'loggedBlogappUser', JSON.stringify(user)
             )
         setUser(user)
         setUsername('')
         setPassword('')
     } catch (exception) {
-        console.log('wrong credentials')
+        handleNotify(`wrong username or password`, 'error')
     }
     }
 
