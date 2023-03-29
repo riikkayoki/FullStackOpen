@@ -2,7 +2,7 @@ import Togglable from "./Togglable"
 import blogService from '../services/blogs'
 
 
-const BlogList = ({blogs, setBlogs, handleNotify }) => {
+const BlogList = ({ blogs, setBlogs, handleNotify }) => {
 
   const blogStyle = {
     paddingTop: 10,
@@ -22,8 +22,7 @@ const BlogList = ({blogs, setBlogs, handleNotify }) => {
       url: blog.url,
       likes: blog.likes + 1,
       user: blog.user.id
-      }
-
+    }
 
     try {
 
@@ -34,14 +33,14 @@ const BlogList = ({blogs, setBlogs, handleNotify }) => {
         name: blog.user.name
       }
 
-    const updatedBlogs = blogs
-    .map(b => b.id === updatedBlog.id ? updatedBlog : b)
-    .sort((a, b) => b.likes - a.likes)
+      const updatedBlogs = blogs
+        .map(b => b.id === updatedBlog.id ? updatedBlog : b)
+        .sort((a, b) => b.likes - a.likes)
 
-    setBlogs(updatedBlogs)
-    handleNotify(`You liked '${updatedBlog.title}'`, 'notification')
+      setBlogs(updatedBlogs)
+      handleNotify(`You liked '${updatedBlog.title}'`, 'notification')
     } catch (exception) {
-      handleNotify(`unable to like the blog`, 'error')
+      handleNotify('unable to like the blog', 'error')
     }
 
 
@@ -58,8 +57,8 @@ const BlogList = ({blogs, setBlogs, handleNotify }) => {
         handleNotify(`You deleted '${blog.title}'`, 'notification')
       }
     }
-      catch (exception) {
-        handleNotify(`unable to delete the blog`, 'error')
+    catch (exception) {
+      handleNotify('unable to delete the blog', 'error')
     }
   }
 
@@ -72,13 +71,13 @@ const BlogList = ({blogs, setBlogs, handleNotify }) => {
             <div style={blogStyle}>
               {blog.title}
               <Togglable buttonLabel='view'>
-              <ul>
-              <li><b>Author:</b> {blog.author}</li>
-              <li><b>Url: </b>{blog.url}</li>
-              <li><b>Likes: </b> {blog.likes} <button onClick={(event) => handleUpdateLikes(event, blog)}>like</button></li>
-              <li><b>Added by: </b> {blog.user.name}</li>
-              </ul>
-              <button onClick={(event) => handleDeleteBlog(event, blog)}>delete</button>
+                <ul>
+                  <li><b>Author:</b> {blog.author}</li>
+                  <li><b>Url: </b>{blog.url}</li>
+                  <li><b>Likes: </b> {blog.likes} <button onClick={(event) => handleUpdateLikes(event, blog)}>like</button></li>
+                  <li><b>Added by: </b> {blog.user.name}</li>
+                </ul>
+                <button onClick={(event) => handleDeleteBlog(event, blog)}>delete</button>
               </Togglable>
             </div>
           </div>

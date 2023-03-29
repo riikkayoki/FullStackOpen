@@ -42,27 +42,27 @@ const App = () => {
   }
 
 
-    if (user === null) {
-        return(
-        <div>
+  if (user === null) {
+    return(
+      <div>
         <Notification message={notification} type={messageType}/>
         <LoginForm setUser={setUser} blogService={blogService} handleNotify={handleNotify}/>
-        </div>
-        )
+      </div>
+    )
 
-      } else {
-        return (
-        <div>
+  } else {
+    return (
+      <div>
         <Notification message={notification} type={messageType}/>
         <UserDetails user={user}/>
         <LogOut/>
         <BlogForm blogs={blogs} setBlogs={setBlogs} handleNotify={handleNotify}/>
         <BlogList blogs={blogs} setBlogs={setBlogs} handleNotify={handleNotify}/>
 
-        </div>
-        )
-      }
+      </div>
+    )
+  }
 
-    }
+}
 
 export default App
