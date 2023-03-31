@@ -60,6 +60,7 @@ const BlogForm = ({ blogs, setBlogs, handleNotify }) => {
               type="text"
               value={title}
               name="Title"
+              id='title-input'
               onChange={handleTitleChange}
             />
           </div>
@@ -69,6 +70,7 @@ const BlogForm = ({ blogs, setBlogs, handleNotify }) => {
               type="text"
               value={author}
               name="Author"
+              id='author-input'
               onChange={handleAuthorChange}
             />
           </div>
@@ -78,6 +80,7 @@ const BlogForm = ({ blogs, setBlogs, handleNotify }) => {
               type="text"
               value={url}
               name="Url"
+              id='url-input'
               onChange={handleUrlChange}
             />
           </div>

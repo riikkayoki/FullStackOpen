@@ -69,14 +69,11 @@ const BlogList = ({ blogs, setBlogs, handleNotify }) => {
         {blogs.map(blog =>
           <div key={blog.id}>
             <div style={blogStyle}>
-              {blog.title}
+              <span>{blog.title} {blog.author}</span>
               <Togglable buttonLabel='view'>
-                <ul>
-                  <li><b>Author:</b> {blog.author}</li>
-                  <li><b>Url: </b>{blog.url}</li>
-                  <li><b>Likes: </b> {blog.likes} <button onClick={(event) => handleUpdateLikes(event, blog)}>like</button></li>
-                  <li><b>Added by: </b> {blog.user.name}</li>
-                </ul>
+                {blog.url} <br />
+                {blog.likes} <button onClick={(event) => handleUpdateLikes(event, blog)}>like</button> <br />
+                {blog.user.name} <br />
                 <button onClick={(event) => handleDeleteBlog(event, blog)}>delete</button>
               </Togglable>
             </div>

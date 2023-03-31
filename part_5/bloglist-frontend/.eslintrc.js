@@ -28,8 +28,10 @@ module.exports = {
             "unix"
         ],
         "quotes": [
-            "error",
+            "off",
             "single",
+            "double",
+
         ],
         "semi": [
             "error",
@@ -45,7 +47,8 @@ module.exports = {
         ],
         "no-console": 0,
         "react/prop-types": 0,
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "jsx-a11y/alt-text": "off"
     },
     "settings": {
       "react": {
