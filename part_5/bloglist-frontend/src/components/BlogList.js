@@ -65,14 +65,14 @@ const BlogList = ({ blogs, setBlogs, handleNotify }) => {
   return (
     <div>
       <h2>Blogs</h2>
-      <div >
+      <div>
         {blogs.map(blog =>
           <div key={blog.id}>
-            <div style={blogStyle}>
+            <div style={blogStyle} data-cy="blog">
               <span>{blog.title} {blog.author}</span>
               <Togglable buttonLabel='view'>
                 {blog.url} <br />
-                {blog.likes} <button onClick={(event) => handleUpdateLikes(event, blog)}>like</button> <br />
+                {blog.likes} <button onClick={(event) => handleUpdateLikes(event, blog)} data-cy='like'>like</button> <br />
                 {blog.user.name} <br />
                 <button onClick={(event) => handleDeleteBlog(event, blog)}>delete</button>
               </Togglable>

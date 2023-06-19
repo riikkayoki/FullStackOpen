@@ -61,6 +61,7 @@ const BlogForm = ({ blogs, setBlogs, handleNotify }) => {
               value={title}
               name="Title"
               id='title-input'
+              data-cy="titleInput"
               onChange={handleTitleChange}
             />
           </div>
@@ -71,6 +72,7 @@ const BlogForm = ({ blogs, setBlogs, handleNotify }) => {
               value={author}
               name="Author"
               id='author-input'
+              data-cy="authorInput"
               onChange={handleAuthorChange}
             />
           </div>
@@ -81,10 +83,11 @@ const BlogForm = ({ blogs, setBlogs, handleNotify }) => {
               value={url}
               name="Url"
               id='url-input'
+              data-cy="urlInput"
               onChange={handleUrlChange}
             />
           </div>
-          <button type="submit">create</button>
+          <button type="submit" data-cy="create">create</button>
         </form>
       </div>
     </Togglable>

@@ -35,6 +35,7 @@ const LoginForm = ({ setUser, blogService, handleNotify }) => {
             type="text"
             value={username}
             name="Username"
+            data-cy="usernameInput"
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
@@ -44,10 +45,11 @@ const LoginForm = ({ setUser, blogService, handleNotify }) => {
             type="password"
             value={password}
             name="Password"
+            data-cy="passwordInput"
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
-        <button type="submit">login</button>
+        <button type="submit" data-cy="login">login</button>
       </form>
     </div>
   )
