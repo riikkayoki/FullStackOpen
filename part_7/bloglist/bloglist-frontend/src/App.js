@@ -10,9 +10,6 @@ import Notification from './components/Notification'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
-  const [notification, setNotification] = useState(null)
-  const [messageType, setMessageType] = useState(null)
-
   useEffect(() => {
     const getBlogs = async () => {
       const blogs = await blogService.getAll()
@@ -31,40 +28,29 @@ const App = () => {
     }
   }, [])
 
-  const handleNotify = (message, type) => {
-    setNotification(message)
-    setMessageType(type)
-    setTimeout(() => {
-      setNotification(null)
-    }, 5000)
-  }
-
   if (user === null) {
     return (
       <div>
-        <Notification message={notification} type={messageType} />
+        <Notification />
         <LoginForm
           setUser={setUser}
           blogService={blogService}
-          handleNotify={handleNotify}
         />
       </div>
     )
   } else {
     return (
       <div>
-        <Notification message={notification} type={messageType} />
+        <Notification />
         <UserDetails user={user} />
         <LogOut />
         <BlogForm
           blogs={blogs}
           setBlogs={setBlogs}
-          handleNotify={handleNotify}
         />
         <BlogList
           blogs={blogs}
           setBlogs={setBlogs}
-          handleNotify={handleNotify}
         />
       </div>
     )

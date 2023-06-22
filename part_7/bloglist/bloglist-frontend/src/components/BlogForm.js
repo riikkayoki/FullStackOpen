@@ -1,11 +1,16 @@
 import React, { useState, useRef } from 'react'
 import blogService from '../services/blogs'
 import Togglable from './Togglable'
+import { useNotificationDispatch } from '../NotificationContext'
 
-const BlogForm = ({ blogs, setBlogs, handleNotify }) => {
+
+const BlogForm = ({ blogs, setBlogs }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+  const dispatch = useNotificationDispatch()
+
+
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value)
@@ -39,9 +44,10 @@ const BlogForm = ({ blogs, setBlogs, handleNotify }) => {
       setAuthor('')
       setUrl('')
       setBlogs(blogs.concat(blog))
-      handleNotify(`a new blog '${blogObject.title}' added`, 'notification')
+      dispatch({ type: 'SET_NOTIFICATION', data: `a new blog ${blog.title} by ${blog.author} added` })
     } catch (exception) {
-      handleNotify(`unable to add '${blogObject.title}'`, 'error')
+      dispatch({ type: 'SET_NOTIFICATION', data: `blog created failed` })
+
     }
   }
 

@@ -9,7 +9,6 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import BlogForm from './BlogForm'
 import userEvent from '@testing-library/user-event'
-import blogs from '../services/blogs'
 
 describe('BlogForm', () => {
   test('form calls event handler with right details when new blog is created', () => {

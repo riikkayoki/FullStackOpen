@@ -1,7 +1,7 @@
 import Togglable from './Togglable'
 import blogService from '../services/blogs'
 
-const BlogList = ({ blogs, setBlogs, handleNotify }) => {
+const BlogList = ({ blogs, setBlogs }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -34,9 +34,9 @@ const BlogList = ({ blogs, setBlogs, handleNotify }) => {
         .sort((a, b) => b.likes - a.likes)
 
       setBlogs(updatedBlogs)
-      handleNotify(`You liked '${updatedBlog.title}'`, 'notification')
+      //handleNotify(`You liked '${updatedBlog.title}'`, 'notification')
     } catch (exception) {
-      handleNotify('unable to like the blog', 'error')
+      //handleNotify('unable to like the blog', 'error')
     }
   }
 
@@ -48,10 +48,10 @@ const BlogList = ({ blogs, setBlogs, handleNotify }) => {
         await blogService.remove(blog.id)
         const updatedBlogs = blogs.filter((b) => b.id !== blog.id)
         setBlogs(updatedBlogs)
-        handleNotify(`You deleted '${blog.title}'`, 'notification')
+        //handleNotify(`You deleted '${blog.title}'`, 'notification')
       }
     } catch (exception) {
-      handleNotify('unable to delete the blog', 'error')
+      //handleNotify('unable to delete the blog', 'error')
     }
   }
 

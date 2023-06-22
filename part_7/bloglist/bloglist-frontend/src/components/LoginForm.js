@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import loginService from '../services/login'
 
-const LoginForm = ({ setUser, blogService, handleNotify }) => {
+const LoginForm = ({ setUser, blogService }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -20,7 +20,7 @@ const LoginForm = ({ setUser, blogService, handleNotify }) => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      handleNotify(`wrong username or password`, 'error')
+      //handleNotify(`wrong username or password`, 'error')
     }
   }
 
