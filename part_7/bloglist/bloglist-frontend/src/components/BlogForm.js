@@ -1,55 +1,16 @@
-import React, { useState, useRef } from 'react'
-import blogService from '../services/blogs'
+
 import Togglable from './Togglable'
-import { useNotificationDispatch } from '../NotificationContext'
 
 
-const BlogForm = ({ blogs, setBlogs }) => {
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
-  const dispatch = useNotificationDispatch()
-
-
-
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value)
-  }
-
-  const handleAuthorChange = (event) => {
-    setAuthor(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    setUrl(event.target.value)
-  }
-
-  const blogFormRef = useRef()
-
-  const handleBlogAdd = async (event) => {
-    event.preventDefault()
-    const blogObject = {
-      title: title,
-      author: author,
-      url: url,
-    }
-
-    try {
-      blogFormRef.current.toggleVisibility()
-      const blog = await blogService.create(blogObject)
-      const loggedUser = window.localStorage.getItem('loggedUser')
-      const user = JSON.parse(loggedUser)
-      blog.user = user
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-      setBlogs(blogs.concat(blog))
-      dispatch({ type: 'SET_NOTIFICATION', data: `a new blog ${blog.title} by ${blog.author} added` })
-    } catch (exception) {
-      dispatch({ type: 'SET_NOTIFICATION', data: `blog created failed` })
-
-    }
-  }
+const BlogForm = ({
+  handleBlogAdd,
+  handleTitleChange,
+  handleAuthorChange,
+  handleUrlChange,
+  blogFormRef,
+  title,
+  author,
+  url }) => {
 
   return (
     <Togglable buttonLabel="new blog" ref={blogFormRef}>
