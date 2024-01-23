@@ -10,8 +10,13 @@ import { useFetchBlogsQuery } from './hooks/useFetchBlogQuery'
 import { useCreateBlogQuery } from './hooks/useCreateBlogQuery'
 import { useUpdateBlogQuery } from './hooks/useUpdateBlogQuery'
 import { useDeleteBlogQuery } from './hooks/useDeleteBlogQuery'
+import { useUserLogInQuery } from './hooks/useUserLogInQuery'
+
 
 const App = () => {
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [title, setTitle] = useState('')
@@ -28,6 +33,32 @@ const App = () => {
   });
   const deleteBlogMutation = useDeleteBlogQuery();
 
+
+  const userLogInMutation = useUserLogInQuery({
+    username: username,
+    password: password,
+  })
+
+  const handleLogin = async (event) => {
+    event.preventDefault()
+
+    try {
+      const user = await userLogInMutation.mutateAsync({
+        username: username,
+        password: password,
+      })
+
+      console.log(user)
+      setUser(user)
+      setUsername('')
+      setPassword('')
+
+    } catch (exception) {
+      console.log(exception)
+      //handleNotify(`wrong username or password`, 'error')
+    }
+  }
+
   useEffect(() => {
     if (blogData) {
       setBlogs(blogData)
@@ -37,13 +68,13 @@ const App = () => {
 
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedUser');
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      blogService.setToken(user.token)
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      blogService.setToken(user.token);
     }
-  }, [])
+  }, []);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value)
@@ -71,6 +102,7 @@ const App = () => {
     });
     const loggedUser = window.localStorage.getItem('loggedUser');
     const user = JSON.parse(loggedUser);
+
     blogs.user = user;
     setTitle('');
     setAuthor('');
@@ -123,8 +155,11 @@ const App = () => {
       <div>
         <Notification />
         <LoginForm
-          setUser={setUser}
-          blogService={blogService}
+          username={username}
+          password={password}
+          handleLogin={handleLogin}
+          handleUserNameChange={({ target }) => setUsername(target.value)}
+          handlePasswordChange={({ target }) => setPassword(target.value)}
         />
       </div>
     )

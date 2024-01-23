@@ -1,28 +1,6 @@
 import React from 'react'
-import { useState } from 'react'
-import loginService from '../services/login'
 
-const LoginForm = ({ setUser, blogService }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    try {
-      const user = await loginService.login({
-        username,
-        password,
-      })
-      console.log(`logging in with ${JSON.stringify(user)}`)
-      blogService.setToken(user.token)
-      window.localStorage.setItem('loggedUser', JSON.stringify(user))
-      setUser(user)
-      setUsername('')
-      setPassword('')
-    } catch (exception) {
-      //handleNotify(`wrong username or password`, 'error')
-    }
-  }
+const LoginForm = ({ username, password, handleLogin, handlePasswordChange, handleUserNameChange }) => {
 
   return (
     <div>
@@ -35,7 +13,7 @@ const LoginForm = ({ setUser, blogService }) => {
             value={username}
             name="Username"
             data-cy="usernameInput"
-            onChange={({ target }) => setUsername(target.value)}
+            onChange={handleUserNameChange}
           />
         </div>
         <div>
@@ -45,7 +23,7 @@ const LoginForm = ({ setUser, blogService }) => {
             value={password}
             name="Password"
             data-cy="passwordInput"
-            onChange={({ target }) => setPassword(target.value)}
+            onChange={handlePasswordChange}
           />
         </div>
         <button type="submit" data-cy="login">
