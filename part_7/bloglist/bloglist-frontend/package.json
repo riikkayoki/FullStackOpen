@@ -8,12 +8,18 @@
         "build": "vite build",
         "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
-        "prettier": "npx prettier . --write"
+        "prettier": "npx prettier . --write",
+        "server": "json-server -p3001 --watch db.json"
     },
     "dependencies": {
+        "axios": "^1.8.4",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "react-query": "^3.39.3",
+        "web-vitals": "^2.1.4",
+        "prop-types": "^15.8.1"
     },
+    "proxy": "http://localhost:3001",
     "devDependencies": {
         "@types/react": "^18.2.15",
         "@types/react-dom": "^18.2.7",
