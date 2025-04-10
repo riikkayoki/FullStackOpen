@@ -2,7 +2,7 @@ import { login } from '../services/login'
 import { useMutation } from 'react-query'
 import blogService from '../services/blogs'
 
-export const useUserLogInQuery = ({username, password}) => {
+export const useUserLogInQuery = ({ username, password }) => {
     const payload = {
         username: username,
         password: password,
@@ -19,5 +19,4 @@ export const useUserLogInQuery = ({username, password}) => {
             console.log(error)
         },
     })
-
 }

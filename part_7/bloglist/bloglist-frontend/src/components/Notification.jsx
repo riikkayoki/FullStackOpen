@@ -1,20 +1,26 @@
-// Notification.js
-import React from 'react';
-import { useNotificationValue } from '../NotificationContext';
+import React from 'react'
+import { useNotificationValue } from '../NotificationContext'
+import styled from 'styled-components'
 
-const Notification = () => {
-  const [notification] = useNotificationValue();
+const StyledNotification = styled.div`
+    color: green;
+    background: rgb(209, 102, 196);
+    border: 1px solid rgb(103, 12, 91);
+    color: white;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+`
 
-  if (!notification) {
-    return null;
-  }
+export const Notification = () => {
+    const [notification] = useNotificationValue()
 
-  return (
-    <div className="notification">
-      {notification}
-    </div>
-  );
-};
+    if (!notification) {
+        return null
+    }
 
-export default Notification;
-
+    return <StyledNotification>{notification}</StyledNotification>
+}

@@ -1,9 +1,9 @@
-import { useQuery } from 'react-query';
-import { fetchBlogs } from '../services/blogs';
+import { useQuery } from 'react-query'
+import { fetchBlog } from '../services/blogs'
 
-export const useFetchBlogsQuery = (id) => {
+export const useFetchBlogQuery = (id) => {
     return useQuery({
-        queryKey: ['blogs', id],
-        queryFn: () => fetchBlogs(id),
+        queryKey: ['blog', id],
+        queryFn: () => fetchBlog(id),
     })
 }
