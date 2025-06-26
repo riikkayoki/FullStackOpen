@@ -1,22 +1,30 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import styled from 'styled-components/native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
+import SignIn from './SignIn';
 
-const styles = StyleSheet.create({
-    container: {
-        flexGrow: 1,
-        flexShrink: 1,
-        backgroundColor: '#e1e4e8',
-    },
-});
+const Container = styled.View`
+    flex-grow: 1;
+    flex-shrink: 1;
+    background-color: #e1e4e8;
+`;
+
+const Stack = createNativeStackNavigator();
 
 const Main = () => {
     return (
-        <View style={styles.container}>
-            <AppBar />
-            <RepositoryList />
-        </View>
+        <NavigationContainer>
+            <Container>
+                <AppBar />
+                <Stack.Navigator screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name="Repositories" component={RepositoryList} />
+                    <Stack.Screen name="SignIn" component={SignIn} />
+                </Stack.Navigator>
+            </Container>
+        </NavigationContainer>
     );
 };
 
