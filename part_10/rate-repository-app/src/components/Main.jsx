@@ -4,20 +4,20 @@ import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    flexShrink: 1,
-    backgroundColor: '#e1e4e8',
-  },
+    container: {
+        flexGrow: 1,
+        flexShrink: 1,
+        backgroundColor: '#e1e4e8',
+    },
 });
 
 const Main = () => {
-  return (
-    <View style={styles.container}>
-      <AppBar />
-      <RepositoryList />
-    </View>
-  );
+    return (
+        <View style={styles.container}>
+            <AppBar />
+            <RepositoryList />
+        </View>
+    );
 };
 
 export default Main;
