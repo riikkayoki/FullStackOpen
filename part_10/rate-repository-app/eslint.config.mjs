@@ -16,7 +16,8 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([{
-    extends: compat.extends("eslint:recommended", "plugin:react/recommended"),
+    files: ["**/*.{js,jsx}"],
+    extends: compat.extends("eslint:recommended", "plugin:react/recommended", "prettier"),
 
     plugins: {
         react,
@@ -29,6 +30,12 @@ export default defineConfig([{
         },
 
         parser: babelParser,
+        parserOptions: {
+            requireConfigFile: false,
+            babelOptions: {
+                presets: ["@babel/preset-react"],
+            },
+        },
     },
 
     settings: {
