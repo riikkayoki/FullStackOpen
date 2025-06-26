@@ -17,7 +17,7 @@ const FormContainer = styled.View`
 `;
 
 const TextInputField = styled.TextInput`
-    border: 1px solid ${props => props.error ? theme.colors.error : theme.colors.background};
+    border: 1px solid ${(props) => (props.error ? theme.colors.error : theme.colors.background)};
     border-radius: 4px;
     padding: ${theme.spacing.md}px;
     font-size: ${theme.fontSizes.body}px;
@@ -49,12 +49,8 @@ const ButtonText = styled(Text)`
 `;
 
 const validationSchema = yup.object().shape({
-    username: yup
-        .string()
-        .required('Username is required'),
-    password: yup
-        .string()
-        .required('Password is required'),
+    username: yup.string().required('Username is required'),
+    password: yup.string().required('Password is required'),
 });
 
 const SignIn = () => {
