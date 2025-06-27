@@ -1,9 +1,12 @@
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
+import { useQuery } from '@apollo/client';
 import Constants from 'expo-constants';
 import theme from '../theme';
 import AppBarTab from './AppBarTab';
+import { ME } from '../graphql/queries';
+import useSignOut from '../hooks/useSignOut';
 
 const Container = styled.View`
     padding-top: ${Constants.statusBarHeight}px;
@@ -16,6 +19,14 @@ const StyledScrollView = styled(ScrollView)`
 
 const AppBar = () => {
     const navigation = useNavigation();
+    const signOut = useSignOut();
+    const { data } = useQuery(ME);
+
+    const isSignedIn = data?.me?.id;
+
+    const handleSignOut = async () => {
+        await signOut();
+    };
 
     return (
         <Container>
@@ -24,7 +35,11 @@ const AppBar = () => {
                     title="Repositories"
                     onPress={() => navigation.navigate('Repositories')}
                 />
-                <AppBarTab title="Sign in" onPress={() => navigation.navigate('SignIn')} />
+                {isSignedIn ? (
+                    <AppBarTab title="Sign out" onPress={handleSignOut} />
+                ) : (
+                    <AppBarTab title="Sign in" onPress={() => navigation.navigate('SignIn')} />
+                )}
             </StyledScrollView>
         </Container>
     );
