@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import styled from 'styled-components/native';
 import Text from './Text';
 import theme from '../theme';
+import useSignIn from '../hooks/useSignIn';
 
 const Container = styled.View`
     padding: ${theme.spacing.lg}px;
@@ -54,9 +55,19 @@ const validationSchema = yup.object().shape({
 });
 
 const SignIn = () => {
-    const onSubmit = (values) => {
-        // eslint-disable-next-line no-console, no-undef
-        console.log(values);
+    const [signIn] = useSignIn();
+
+    const onSubmit = async (values) => {
+        const { username, password } = values;
+
+        try {
+            const { data } = await signIn({ username, password });
+            // eslint-disable-next-line no-console, no-undef
+            console.log(data);
+        } catch (e) {
+            // eslint-disable-next-line no-console, no-undef
+            console.log(e);
+        }
     };
 
     return (
