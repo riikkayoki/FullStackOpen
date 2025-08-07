@@ -6,6 +6,7 @@ import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 import SignIn from './SignIn';
 import SingleRepository from './SingleRepository';
+import CreateReview from './CreateReview';
 
 const Container = styled.View`
     flex-grow: 1;
@@ -24,6 +25,7 @@ const Main = () => {
                     <Stack.Screen name="Repositories" component={RepositoryList} />
                     <Stack.Screen name="SignIn" component={SignIn} />
                     <Stack.Screen name="Repository" component={SingleRepository} />
+                    <Stack.Screen name="CreateReview" component={CreateReview} />
                 </Stack.Navigator>
             </Container>
         </NavigationContainer>

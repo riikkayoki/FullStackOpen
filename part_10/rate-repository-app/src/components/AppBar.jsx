@@ -36,7 +36,13 @@ const AppBar = () => {
                     onPress={() => navigation.navigate('Repositories')}
                 />
                 {isSignedIn ? (
-                    <AppBarTab title="Sign out" onPress={handleSignOut} />
+                    <>
+                        <AppBarTab
+                            title="Create a review"
+                            onPress={() => navigation.navigate('CreateReview')}
+                        />
+                        <AppBarTab title="Sign out" onPress={handleSignOut} />
+                    </>
                 ) : (
                     <AppBarTab title="Sign in" onPress={() => navigation.navigate('SignIn')} />
                 )}
