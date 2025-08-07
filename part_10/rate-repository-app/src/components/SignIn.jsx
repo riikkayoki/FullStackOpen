@@ -54,22 +54,7 @@ const validationSchema = yup.object().shape({
     password: yup.string().required('Password is required'),
 });
 
-const SignIn = () => {
-    const [signIn] = useSignIn();
-
-    const onSubmit = async (values) => {
-        const { username, password } = values;
-
-        try {
-            const { data } = await signIn({ username, password });
-            // eslint-disable-next-line no-console, no-undef
-            console.log(data);
-        } catch (e) {
-            // eslint-disable-next-line no-console, no-undef
-            console.log(e);
-        }
-    };
-
+export const SignInContainer = ({ onSubmit }) => {
     return (
         <Container>
             <Text fontSize="subheading" fontWeight="bold">
@@ -108,7 +93,7 @@ const SignIn = () => {
                                     <ErrorText>{errors.password}</ErrorText>
                                 )}
                             </FieldContainer>
-                            <SubmitButton onPress={handleSubmit}>
+                            <SubmitButton onPress={handleSubmit} testID="submitButton">
                                 <ButtonText>Sign In</ButtonText>
                             </SubmitButton>
                         </View>
@@ -117,6 +102,25 @@ const SignIn = () => {
             </FormContainer>
         </Container>
     );
+};
+
+const SignIn = () => {
+    const [signIn] = useSignIn();
+
+    const onSubmit = async (values) => {
+        const { username, password } = values;
+
+        try {
+            const { data } = await signIn({ username, password });
+            // eslint-disable-next-line no-console, no-undef
+            console.log(data);
+        } catch (e) {
+            // eslint-disable-next-line no-console, no-undef
+            console.log(e);
+        }
+    };
+
+    return <SignInContainer onSubmit={onSubmit} />;
 };
 
 export default SignIn;

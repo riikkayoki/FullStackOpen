@@ -81,7 +81,7 @@ const formatCount = (count) => {
 
 const RepositoryItem = ({ repository }) => {
     return (
-        <Container>
+        <Container testID="repositoryItem">
             <TopSection>
                 <AvatarContainer>
                     <Avatar source={{ uri: repository.ownerAvatarUrl }} />
