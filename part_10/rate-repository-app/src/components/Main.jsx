@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppBar from './AppBar';
 import RepositoryList from './RepositoryList';
 import SignIn from './SignIn';
+import SingleRepository from './SingleRepository';
 
 const Container = styled.View`
     flex-grow: 1;
@@ -22,6 +23,7 @@ const Main = () => {
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="Repositories" component={RepositoryList} />
                     <Stack.Screen name="SignIn" component={SignIn} />
+                    <Stack.Screen name="Repository" component={SingleRepository} />
                 </Stack.Navigator>
             </Container>
         </NavigationContainer>

@@ -1,5 +1,12 @@
+/* global describe, it, expect, jest */
 import { render, screen } from '@testing-library/react-native';
 import { RepositoryListContainer } from '../components/RepositoryList';
+
+jest.mock('@react-navigation/native', () => ({
+    useNavigation: jest.fn(() => ({
+        navigate: jest.fn(),
+    })),
+}));
 
 describe('RepositoryList', () => {
     describe('RepositoryListContainer', () => {

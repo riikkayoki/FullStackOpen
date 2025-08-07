@@ -1,5 +1,6 @@
 import { Text, Image } from 'react-native';
 import styled from 'styled-components/native';
+import * as Linking from 'expo-linking';
 
 const Container = styled.View`
     background-color: white;
@@ -72,6 +73,20 @@ const StatLabel = styled(Text)`
     color: #586069;
 `;
 
+const GitHubButton = styled.Pressable`
+    background-color: #0366d6;
+    padding: 15px;
+    border-radius: 4px;
+    align-items: center;
+    margin-top: 15px;
+`;
+
+const ButtonText = styled(Text)`
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+`;
+
 const formatCount = (count) => {
     if (count >= 1000) {
         return `${(count / 1000).toFixed(1)}k`;
@@ -79,7 +94,11 @@ const formatCount = (count) => {
     return count.toString();
 };
 
-const RepositoryItem = ({ repository }) => {
+const RepositoryItem = ({ repository, showGitHubButton = false }) => {
+    const handleOpenInGitHub = () => {
+        Linking.openURL(repository.url);
+    };
+
     return (
         <Container testID="repositoryItem">
             <TopSection>
@@ -114,6 +133,11 @@ const RepositoryItem = ({ repository }) => {
                     <StatLabel>Rating</StatLabel>
                 </StatItem>
             </StatsContainer>
+            {showGitHubButton && (
+                <GitHubButton onPress={handleOpenInGitHub}>
+                    <ButtonText>Open in GitHub</ButtonText>
+                </GitHubButton>
+            )}
         </Container>
     );
 };
