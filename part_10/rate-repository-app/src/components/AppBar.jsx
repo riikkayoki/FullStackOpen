@@ -44,7 +44,10 @@ const AppBar = () => {
                         <AppBarTab title="Sign out" onPress={handleSignOut} />
                     </>
                 ) : (
-                    <AppBarTab title="Sign in" onPress={() => navigation.navigate('SignIn')} />
+                    <>
+                        <AppBarTab title="Sign in" onPress={() => navigation.navigate('SignIn')} />
+                        <AppBarTab title="Sign up" onPress={() => navigation.navigate('SignUp')} />
+                    </>
                 )}
             </StyledScrollView>
         </Container>
