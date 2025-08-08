@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { FlatList, Pressable } from 'react-native';
+import { FlatList, Pressable, View } from 'react-native';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
+import { useDebounce } from 'use-debounce';
 import RepositoryItem from './RepositoryItem';
 import RepositorySortSelector from './RepositorySortSelector';
+import RepositorySearchBar from './RepositorySearchBar';
 import useRepositories from '../hooks/useRepositories';
 
 const Separator = styled.View`
@@ -12,34 +14,59 @@ const Separator = styled.View`
 
 const ItemSeparator = () => <Separator />;
 
-export const RepositoryListContainer = ({ repositories, selectedSort, onSortChange }) => {
-    const navigation = useNavigation();
-    const repositoryNodes = repositories ? repositories.edges.map((edge) => edge.node) : [];
+export class RepositoryListContainer extends React.Component {
+    renderHeader = () => {
+        const { 
+            selectedSort, 
+            onSortChange, 
+            searchKeyword, 
+            onSearchKeywordChange 
+        } = this.props;
 
-    const renderItem = ({ item }) => (
-        <Pressable onPress={() => navigation.navigate('Repository', { id: item.id })}>
-            <RepositoryItem repository={item} />
-        </Pressable>
-    );
+        return (
+            <View>
+                <RepositorySearchBar 
+                    searchKeyword={searchKeyword}
+                    onSearchKeywordChange={onSearchKeywordChange}
+                />
+                <RepositorySortSelector 
+                    selectedSort={selectedSort}
+                    onSortChange={onSortChange}
+                />
+            </View>
+        );
+    };
 
-    const ListHeader = () => (
-        <RepositorySortSelector selectedSort={selectedSort} onSortChange={onSortChange} />
-    );
+    render() {
+        const { repositories } = this.props;
+        const navigation = this.props.navigation;
+        const repositoryNodes = repositories ? repositories.edges.map((edge) => edge.node) : [];
 
-    return (
-        <FlatList
-            data={repositoryNodes}
-            ItemSeparatorComponent={ItemSeparator}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            ListHeaderComponent={ListHeader}
-        />
-    );
-};
+        const renderItem = ({ item }) => (
+            <Pressable onPress={() => navigation.navigate('Repository', { id: item.id })}>
+                <RepositoryItem repository={item} />
+            </Pressable>
+        );
+
+        return (
+            <FlatList
+                data={repositoryNodes}
+                ItemSeparatorComponent={ItemSeparator}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                ListHeaderComponent={this.renderHeader}
+            />
+        );
+    }
+}
 
 const RepositoryList = () => {
     const [selectedSort, setSelectedSort] = useState('LATEST');
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
+    const navigation = useNavigation();
 
+    // Convert sort selection to GraphQL variables
     const getSortVariables = (sortValue) => {
         switch (sortValue) {
             case 'HIGHEST_RATED':
@@ -52,13 +79,21 @@ const RepositoryList = () => {
         }
     };
 
-    const { repositories } = useRepositories(getSortVariables(selectedSort));
+    const variables = {
+        ...getSortVariables(selectedSort),
+        searchKeyword: debouncedSearchKeyword || undefined,
+    };
+
+    const { repositories } = useRepositories(variables);
 
     return (
-        <RepositoryListContainer
-            repositories={repositories}
+        <RepositoryListContainer 
+            repositories={repositories} 
             selectedSort={selectedSort}
             onSortChange={setSelectedSort}
+            searchKeyword={searchKeyword}
+            onSearchKeywordChange={setSearchKeyword}
+            navigation={navigation}
         />
     );
 };

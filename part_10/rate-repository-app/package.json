@@ -33,6 +33,7 @@
     "react-native-vector-icons": "^10.3.0",
     "react-native-web": "^0.20.0",
     "styled-components": "^6.1.19",
+    "use-debounce": "^10.0.5",
     "yup": "^1.6.1"
   },
   "devDependencies": {
