@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { ApolloProvider } from '@apollo/client';
+import { Provider as PaperProvider } from 'react-native-paper';
 import Constants from 'expo-constants';
 
 import Main from './src/components/Main';
@@ -17,11 +18,13 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-            <ApolloProvider client={apolloClient}>
-                <AuthStorageContext.Provider value={authStorage}>
-                    <Main />
-                </AuthStorageContext.Provider>
-            </ApolloProvider>
+            <PaperProvider>
+                <ApolloProvider client={apolloClient}>
+                    <AuthStorageContext.Provider value={authStorage}>
+                        <Main />
+                    </AuthStorageContext.Provider>
+                </ApolloProvider>
+            </PaperProvider>
             <StatusBar style="auto" />
         </View>
     );

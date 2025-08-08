@@ -56,7 +56,9 @@ describe('RepositoryList', () => {
             const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
 
             expect(firstRepositoryItem).toHaveTextContent(/jaredpalmer\/formik/);
-            expect(firstRepositoryItem).toHaveTextContent(/Build forms in React, without the tears/);
+            expect(firstRepositoryItem).toHaveTextContent(
+                /Build forms in React, without the tears/,
+            );
             expect(firstRepositoryItem).toHaveTextContent(/TypeScript/);
             expect(firstRepositoryItem).toHaveTextContent(/21\.9k/);
             expect(firstRepositoryItem).toHaveTextContent(/1\.6k/);
@@ -64,7 +66,9 @@ describe('RepositoryList', () => {
             expect(firstRepositoryItem).toHaveTextContent(/3/);
 
             expect(secondRepositoryItem).toHaveTextContent(/async-library\/react-async/);
-            expect(secondRepositoryItem).toHaveTextContent(/Flexible promise-based React data loader/);
+            expect(secondRepositoryItem).toHaveTextContent(
+                /Flexible promise-based React data loader/,
+            );
             expect(secondRepositoryItem).toHaveTextContent(/JavaScript/);
             expect(secondRepositoryItem).toHaveTextContent(/1\.8k/);
             expect(secondRepositoryItem).toHaveTextContent(/69/);
