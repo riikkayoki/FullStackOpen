@@ -41,6 +41,10 @@ const AppBar = () => {
                             title="Create a review"
                             onPress={() => navigation.navigate('CreateReview')}
                         />
+                        <AppBarTab
+                            title="My reviews"
+                            onPress={() => navigation.navigate('MyReviews')}
+                        />
                         <AppBarTab title="Sign out" onPress={handleSignOut} />
                     </>
                 ) : (

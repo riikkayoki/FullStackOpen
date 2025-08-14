@@ -8,6 +8,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import SingleRepository from './SingleRepository';
 import CreateReview from './CreateReview';
+import MyReviews from './MyReviews';
 
 const Container = styled.View`
     flex-grow: 1;
@@ -28,6 +29,7 @@ const Main = () => {
                     <Stack.Screen name="SignUp" component={SignUp} />
                     <Stack.Screen name="Repository" component={SingleRepository} />
                     <Stack.Screen name="CreateReview" component={CreateReview} />
+                    <Stack.Screen name="MyReviews" component={MyReviews} />
                 </Stack.Navigator>
             </Container>
         </NavigationContainer>
