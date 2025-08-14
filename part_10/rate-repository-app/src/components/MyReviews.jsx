@@ -19,9 +19,7 @@ const MyReviews = () => {
 
     const reviewNodes = reviews ? reviews.edges.map((edge) => edge.node) : [];
 
-    const renderItem = ({ item }) => (
-        <MyReviewItem review={item} />
-    );
+    const renderItem = ({ item }) => <MyReviewItem review={item} />;
 
     return (
         <FlatList
@@ -33,4 +31,4 @@ const MyReviews = () => {
     );
 };
 
-export default MyReviews; 
+export default MyReviews;

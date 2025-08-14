@@ -24,4 +24,4 @@ const RepositorySearchBar = ({ searchKeyword, onSearchKeywordChange }) => {
     );
 };
 
-export default RepositorySearchBar; 
+export default RepositorySearchBar;

@@ -9,7 +9,10 @@ describe('SignUp', () => {
 
             fireEvent.changeText(screen.getByPlaceholderText('Username'), 'testuser');
             fireEvent.changeText(screen.getByPlaceholderText('Password'), 'password123');
-            fireEvent.changeText(screen.getByPlaceholderText('Password confirmation'), 'password123');
+            fireEvent.changeText(
+                screen.getByPlaceholderText('Password confirmation'),
+                'password123',
+            );
             fireEvent.press(screen.getByTestId('submitButton'));
 
             await waitFor(() => {

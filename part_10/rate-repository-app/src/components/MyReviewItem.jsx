@@ -71,28 +71,24 @@ const MyReviewItem = ({ review }) => {
     };
 
     const handleDeletePress = () => {
-        Alert.alert(
-            'Delete review',
-            'Are you sure you want to delete this review?',
-            [
-                {
-                    text: 'CANCEL',
-                    style: 'cancel',
+        Alert.alert('Delete review', 'Are you sure you want to delete this review?', [
+            {
+                text: 'CANCEL',
+                style: 'cancel',
+            },
+            {
+                text: 'DELETE',
+                style: 'destructive',
+                onPress: async () => {
+                    try {
+                        await deleteReview(review.id);
+                        refetch();
+                    } catch {
+                        Alert.alert('Error', 'Failed to delete review. Please try again.');
+                    }
                 },
-                {
-                    text: 'DELETE',
-                    style: 'destructive',
-                    onPress: async () => {
-                        try {
-                            await deleteReview(review.id);
-                            refetch();
-                        } catch {
-                            Alert.alert('Error', 'Failed to delete review. Please try again.');
-                        }
-                    },
-                },
-            ]
-        );
+            },
+        ]);
     };
 
     return (
@@ -134,4 +130,4 @@ const MyReviewItem = ({ review }) => {
     );
 };
 
-export default MyReviewItem; 
+export default MyReviewItem;

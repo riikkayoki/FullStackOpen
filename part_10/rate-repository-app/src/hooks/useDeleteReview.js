@@ -14,4 +14,4 @@ const useDeleteReview = () => {
     return [deleteReview, result];
 };
 
-export default useDeleteReview; 
+export default useDeleteReview;

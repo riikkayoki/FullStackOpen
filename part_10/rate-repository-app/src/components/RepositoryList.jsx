@@ -16,23 +16,15 @@ const ItemSeparator = () => <Separator />;
 
 export class RepositoryListContainer extends React.Component {
     renderHeader = () => {
-        const { 
-            selectedSort, 
-            onSortChange, 
-            searchKeyword, 
-            onSearchKeywordChange 
-        } = this.props;
+        const { selectedSort, onSortChange, searchKeyword, onSearchKeywordChange } = this.props;
 
         return (
             <View>
-                <RepositorySearchBar 
+                <RepositorySearchBar
                     searchKeyword={searchKeyword}
                     onSearchKeywordChange={onSearchKeywordChange}
                 />
-                <RepositorySortSelector 
-                    selectedSort={selectedSort}
-                    onSortChange={onSortChange}
-                />
+                <RepositorySortSelector selectedSort={selectedSort} onSortChange={onSortChange} />
             </View>
         );
     };
@@ -66,7 +58,6 @@ const RepositoryList = () => {
     const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
     const navigation = useNavigation();
 
-    // Convert sort selection to GraphQL variables
     const getSortVariables = (sortValue) => {
         switch (sortValue) {
             case 'HIGHEST_RATED':
@@ -87,8 +78,8 @@ const RepositoryList = () => {
     const { repositories } = useRepositories(variables);
 
     return (
-        <RepositoryListContainer 
-            repositories={repositories} 
+        <RepositoryListContainer
+            repositories={repositories}
             selectedSort={selectedSort}
             onSortChange={setSelectedSort}
             searchKeyword={searchKeyword}

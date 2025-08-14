@@ -25,7 +25,20 @@ const RepositoryInfo = ({ repository }) => {
 const SingleRepository = () => {
     const route = useRoute();
     const { id } = route.params;
-    const { repository, loading, error } = useRepository(id);
+    const { repository, fetchMore, loading, error } = useRepository({
+        id,
+        first: 4,
+    });
+
+    const onEndReach = () => {
+        if (loading) {
+            return;
+        }
+
+        // eslint-disable-next-line no-console, no-undef
+        console.log('End reached! Fetching more reviews...');
+        fetchMore();
+    };
 
     if (loading) {
         return (
@@ -61,8 +74,10 @@ const SingleRepository = () => {
             ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
             ItemSeparatorComponent={ItemSeparator}
             style={{ backgroundColor: '#e1e5e9' }}
+            onEndReached={onEndReach}
+            onEndReachedThreshold={0.1}
         />
     );
 };
 
-export default SingleRepository; 
+export default SingleRepository;

@@ -26,7 +26,7 @@ const RepositorySortSelector = ({ selectedSort, onSortChange }) => {
     };
 
     const getCurrentSortLabel = () => {
-        const option = sortOptions.find(opt => opt.value === selectedSort);
+        const option = sortOptions.find((opt) => opt.value === selectedSort);
         return option ? option.label : 'Latest repositories';
     };
 
