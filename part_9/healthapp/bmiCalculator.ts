@@ -1,3 +1,4 @@
+import { parseNumberArgs, runCli } from './cliRunner';
 
 const BMICategory: Record<string, string> = {
   SevereThinness: 'Underweight (severe thinness)',
@@ -12,7 +13,7 @@ const BMICategory: Record<string, string> = {
 
 
 
-const calculateBmi = (heightCm: number, weightKg: number): string => {
+export const calculateBmi = (heightCm: number, weightKg: number): string => {
   if (!Number.isFinite(heightCm) || !Number.isFinite(weightKg) || heightCm <= 0 || weightKg <= 0) {
     throw new Error('Height and weight must be positive, finite numbers');
   }
@@ -30,4 +31,22 @@ const calculateBmi = (heightCm: number, weightKg: number): string => {
   return BMICategory.ObeseClassIII;
 };
 
-console.log(calculateBmi(180, 74));
+interface BmiArguments {
+  heightCm: number;
+  weightKg: number;
+}
+
+const parseBmiArguments = (args: Array<string>): BmiArguments => {
+  if (args.length !== 2) {
+    throw new Error('Usage: npm run calculateBmi <heightCm> <weightKg>');
+  }
+  const [heightCm, weightKg] = parseNumberArgs(args);
+  return { heightCm, weightKg };
+};
+
+if (require.main === module) {
+  runCli(() => {
+    const { heightCm, weightKg } = parseBmiArguments(process.argv.slice(2));
+    console.log(calculateBmi(heightCm, weightKg));
+  });
+}

@@ -1,3 +1,5 @@
+import { parseNumberArgs, runCli } from './cliRunner';
+
 type Rating = 1 | 2 | 3;
 
 interface ExerciseResult {
@@ -28,7 +30,7 @@ const computeRating = (average: number, target: number): Rating => {
   return 1;
 };
 
-const calculateExercises = (dailyHours: Array<number>, target: number): ExerciseResult => {
+export const calculateExercises = (dailyHours: Array<number>, target: number): ExerciseResult => {
   if (dailyHours.length === 0) {
     throw new Error('dailyHours must contain at least one day');
   }
@@ -55,4 +57,22 @@ const calculateExercises = (dailyHours: Array<number>, target: number): Exercise
   };
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+interface ExerciseArguments {
+  target: number;
+  dailyHours: Array<number>;
+}
+
+const parseExerciseArguments = (args: Array<string>): ExerciseArguments => {
+  if (args.length < 2) {
+    throw new Error('Usage: npm run calculateExercises <target> <hours...>');
+  }
+  const [target, ...dailyHours] = parseNumberArgs(args);
+  return { target, dailyHours };
+};
+
+if (require.main === module) {
+  runCli(() => {
+    const { target, dailyHours } = parseExerciseArguments(process.argv.slice(2));
+    console.log(calculateExercises(dailyHours, target));
+  });
+}
