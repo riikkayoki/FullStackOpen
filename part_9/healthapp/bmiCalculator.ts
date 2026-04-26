@@ -9,7 +9,7 @@ const BMICategory: Record<string, string> = {
   ObeseClassI: 'Obese (class I)',
   ObeseClassII: 'Obese (class II)',
   ObeseClassIII: 'Obese (class III)',
-}
+};
 
 
 
